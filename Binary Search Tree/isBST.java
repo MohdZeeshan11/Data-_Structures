@@ -1,45 +1,21 @@
-//User function Template for Java
-
-
-/* A binary tree node class
-class Node
+public class Solution
 {
-	int data;
-	Node left,right;
-	
-	Node(int d)
-	{
-		data = d;
-		left = right = null;		
-	}
-} */
-
-class Tree
-{
-    
-    //Function to check whether a binary tree is balanced or not.
-    boolean isBalanced(Node root)
-    {
-        int result = checkDiffOFHeight(root);
-        if(result == -1)
-        return false;
-        else 
-        return true;
-    }
-    int checkDiffOFHeight(Node root)
+    //Function to check whether a Binary Tree is BST or not.
+    boolean isBST(Node root)
     {
         if(root == null)
-        return 0;
+        return true;
         
-        int left = checkDiffOFHeight(root.left);
-        int right = checkDiffOFHeight(root.right);
+        return isBST(root, Integer.MIN_VALUE , Integer.MAX_VALUE);
+    }
+    boolean isBST(Node root , int min , int max)
+    {
+        if(root == null)
+        return true;
         
-        if(left == -1 || right == -1)
-        return -1;
+        if(root.data < min || root.data > max)
+        return false;
         
-        if(Math.abs(left-right)>1)
-        return -1;
-        
-        return 1+Math.max(left,right);
+        return isBST(root.left , min , root.data)&&isBST(root.right ,root.data ,max);
     }
 }
